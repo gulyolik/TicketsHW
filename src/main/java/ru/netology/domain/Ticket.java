@@ -1,6 +1,6 @@
 package ru.netology.domain;
 
-public class Ticket implements Comparable <Ticket> {
+public class Ticket implements Comparable<Ticket> {
 
     protected int id;
     protected int cost;
