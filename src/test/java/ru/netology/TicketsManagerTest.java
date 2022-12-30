@@ -6,20 +6,23 @@ import org.junit.jupiter.api.Test;
 import ru.netology.domain.Ticket;
 import ru.netology.repository.TicketsRepository;
 
+import java.util.Comparator;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TicketsManagerTest {
     TicketsRepository repo = new TicketsRepository();
     TicketsManager manager = new TicketsManager(repo);
+    TicketsTimeComparator timeComparator = new TicketsTimeComparator();
 
     Ticket ticket1 = new Ticket(1, 2117, "LED", "DME", 90 );
     Ticket ticket2 = new Ticket(2, 1895, "LED", "VKO", 60);
-    Ticket ticket3 = new Ticket(3, 2110, "LED", "SVO", 90);
+    Ticket ticket3 = new Ticket(3, 2110, "LED", "SVO", 70);
     Ticket ticket4 = new Ticket(4, 2120, "LED", "DME", 80);
-    Ticket ticket5 = new Ticket(5, 3000, "SVO", "LED", 60);
+    Ticket ticket5 = new Ticket(5, 3000, "SVO", "LED", 61);
     Ticket ticket6 = new Ticket(6, 2888, "DME", "LED", 77);
-    Ticket ticket7 = new Ticket(7, 3333, "DME", "LED", 90);
-    Ticket ticket8 = new Ticket(8, 1000, "DME", "LED", 90);
+    Ticket ticket7 = new Ticket(7, 3333, "DME", "LED", 93);
+    Ticket ticket8 = new Ticket(8, 1000, "DME", "LED", 98);
 
     @BeforeEach
             public void setup(){
@@ -65,6 +68,21 @@ public class TicketsManagerTest {
         Ticket[] actual = repo.findAll();
         Assertions.assertArrayEquals(expected, actual);
     }
+
+    @Test
+    public void shouldFindNecessaryTicketWithComparator2(){
+        Ticket[] expected = {ticket4, ticket1};
+        Ticket[] actual = manager.findNecessaryTickets("LED", "DME",timeComparator );
+        Assertions.assertArrayEquals(expected,actual);
+    }
+
+    @Test
+    public void shouldFindNecessaryTicketWithComparator3(){
+        Ticket[] expected = {ticket6, ticket7, ticket8};
+        Ticket[] actual = manager.findNecessaryTickets("DME", "LED", timeComparator);
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
 
 
 
