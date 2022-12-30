@@ -12,7 +12,7 @@ public class TicketsManagerTest {
     TicketsRepository repo = new TicketsRepository();
     TicketsManager manager = new TicketsManager(repo);
 
-    Ticket ticket1 = new Ticket(1, 2117, "LED", "DME", 90 );
+    Ticket ticket1 = new Ticket(1, 2117, "LED", "DME", 90);
     Ticket ticket2 = new Ticket(2, 1895, "LED", "VKO", 60);
     Ticket ticket3 = new Ticket(3, 2110, "LED", "SVO", 90);
     Ticket ticket4 = new Ticket(4, 2120, "LED", "DME", 80);
@@ -22,7 +22,7 @@ public class TicketsManagerTest {
     Ticket ticket8 = new Ticket(8, 1000, "DME", "LED", 90);
 
     @BeforeEach
-            public void setup(){
+    public void setup() {
         repo.save(ticket1);
         repo.save(ticket2);
         repo.save(ticket3);
@@ -33,19 +33,19 @@ public class TicketsManagerTest {
         repo.save(ticket8);
         Ticket[] expected = {ticket1, ticket2, ticket3, ticket4, ticket5, ticket6, ticket7, ticket8};
         Ticket[] actual = repo.findAll();
-        Assertions.assertArrayEquals(expected,actual);
+        Assertions.assertArrayEquals(expected, actual);
     }
 
     @Test
-    public void shouldFindNecessaryTicketsTest(){
+    public void shouldFindNecessaryTicketsTest() {
         Ticket[] expected = {ticket1, ticket4};
         Ticket[] actual = manager.findNecessaryTickets("LED", "DME");
-        Assertions.assertArrayEquals(expected,actual);
+        Assertions.assertArrayEquals(expected, actual);
 
     }
 
     @Test
-    public void shouldFindNecessaryTicketsTest2(){
+    public void shouldFindNecessaryTicketsTest2() {
         Ticket[] expected = {ticket2};
         Ticket[] actual = manager.findNecessaryTickets("LED", "VKO");
         Assertions.assertArrayEquals(expected, actual);
@@ -59,15 +59,12 @@ public class TicketsManagerTest {
     }
 
     @Test
-    public void shouldRemoveById(){
+    public void shouldRemoveById() {
         repo.removeById(4);
         Ticket[] expected = {ticket1, ticket2, ticket3, ticket5, ticket6, ticket7, ticket8};
         Ticket[] actual = repo.findAll();
         Assertions.assertArrayEquals(expected, actual);
     }
-
-
-
 
 
 }
